@@ -1,5 +1,6 @@
 package ar.edu.unahur.obj2.caralibro
 
+import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -63,9 +64,19 @@ class UsuarioTest : DescribeSpec({
       }
     }
     describe("la publicacion le gusta a pepe y cantidad de me gustas"){
-      pepe.darMeGusta(fotoEnCuzco)
-      fotoEnCuzco.usuariosQueLeGusta.contains(pepe).shouldBeTrue()
-      fotoEnCuzco.cantidadDeMeGustas.shouldBe(1)
+      it("pepe le da me gusta"){
+        pepe.darMeGusta(fotoEnCuzco)
+        fotoEnCuzco.usuariosQueLeGusta.contains(pepe).shouldBeTrue()
+        fotoEnCuzco.cantidadDeMeGustas.shouldBe(1)
+      }
+      it("no permite dar me gusta") {
+        pepe.darMeGusta(fotoEnCuzco)
+        shouldThrowAny {
+          pepe.darMeGusta(fotoEnCuzco)
+        }
+      }
     }
+
+
   }
 })

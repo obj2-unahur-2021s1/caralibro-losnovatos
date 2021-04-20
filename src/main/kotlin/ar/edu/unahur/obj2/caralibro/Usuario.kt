@@ -7,6 +7,7 @@ class Usuario {
     publicaciones.add(publicacion)
   }
   fun darMeGusta(publicacion: Publicacion){
+    check(!publicacion.usuariosQueLeGusta.contains(this)){"Este usuario ya le ha dado me gusta a la publicacion"}
     publicacion.usuariosQueLeGusta.add(this)
     publicacion.cantidadDeMeGustas+=1
   }
