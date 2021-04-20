@@ -1,6 +1,7 @@
 package ar.edu.unahur.obj2.caralibro
 
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 class UsuarioTest : DescribeSpec({
@@ -8,6 +9,8 @@ class UsuarioTest : DescribeSpec({
     val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz")
     val fotoEnCuzco = Foto(768, 1024)
     val videoFiesta = Video(30, Calidad.SD)
+    val pepe=Usuario()
+    val juan = Usuario()
 
     describe("Una publicación") {
       describe("de tipo foto") {
@@ -58,6 +61,11 @@ class UsuarioTest : DescribeSpec({
         juana.agregarPublicacion(saludoCumpleanios)
         juana.espacioDePublicaciones().shouldBe(550548)
       }
+    }
+    describe("la publicacion le gusta a pepe y cantidad de me gustas"){
+      pepe.darMeGusta(fotoEnCuzco)
+      fotoEnCuzco.usuariosQueLeGusta.contains(pepe).shouldBeTrue()
+      fotoEnCuzco.cantidadDeMeGustas.shouldBe(1)
     }
   }
 })

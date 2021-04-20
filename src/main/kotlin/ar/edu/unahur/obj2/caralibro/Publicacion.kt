@@ -4,6 +4,8 @@ import kotlin.math.ceil
 
 abstract class Publicacion {
   abstract fun espacioQueOcupa(): Int
+  var usuariosQueLeGusta= mutableListOf<Usuario>()
+  var cantidadDeMeGustas=0
 }
 
 class Foto(val alto: Int, val ancho: Int) : Publicacion() {
