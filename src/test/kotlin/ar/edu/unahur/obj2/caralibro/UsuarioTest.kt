@@ -15,6 +15,12 @@ class UsuarioTest : DescribeSpec({
           fotoEnCuzco.espacioQueOcupa().shouldBe(550503)
         }
       }
+      describe("de tipo foto con otro factor de compresion"){
+        it("ocupa ancho*alto*nuevaCompresion"){
+          fotoEnCuzco.cambiarFactorDeCompresion(0.8)
+          fotoEnCuzco.espacioQueOcupa().shouldBe(629146)
+        }
+      }
 
       describe("de tipo texto") {
         it("ocupa tantos bytes como su longitud") {
@@ -31,14 +37,14 @@ class UsuarioTest : DescribeSpec({
 
         describe("calidad HD720p") {
           it("ocupa bytes igual al triple de duración en segundos") {
-            videoFiesta.cambiarAHD720p()
+            videoFiesta.cambiarACalidad(calidad = Calidad.HD720p)
             videoFiesta.espacioQueOcupa().shouldBe(90)
           }
         }
 
         describe("calidad HD1080p") {
           it("ocupa bytes igual al doble de duración en segundos que tendría en HD720p") {
-            videoFiesta.cambiarAHD1080p()
+            videoFiesta.cambiarACalidad(calidad=Calidad.HD1080p)
             videoFiesta.espacioQueOcupa().shouldBe(180)
           }
         }

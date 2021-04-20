@@ -7,8 +7,11 @@ abstract class Publicacion {
 }
 
 class Foto(val alto: Int, val ancho: Int) : Publicacion() {
-  val factorDeCompresion = 0.7
+  var factorDeCompresion= 0.7
   override fun espacioQueOcupa() = ceil(alto * ancho * factorDeCompresion).toInt()
+  fun cambiarFactorDeCompresion(nuevoFactor: Double){
+    this.factorDeCompresion= nuevoFactor.toDouble()
+  }
 }
 
 class Texto(val contenido: String) : Publicacion() {
@@ -16,26 +19,14 @@ class Texto(val contenido: String) : Publicacion() {
 }
 
 class Video(val segundos: Int, var calidad: Calidad) : Publicacion() {
-  override fun espacioQueOcupa(): Int {
-    var calidad = when {
-      calidad == Calidad.SD -> return segundos
-      calidad == Calidad.HD720p -> return segundos * 3
-      calidad == Calidad.HD1080p -> return segundos * 3 * 2
-      else -> return error("Debe seleccionar una calidad válida.")
-    }
-  }
-
-  fun cambiarAHD720p() {
-    calidad = Calidad.HD720p
-  }
-  fun cambiarAHD1080p() {
-    calidad = Calidad.HD1080p
+  override fun espacioQueOcupa()=segundos*calidad.factorDeMultiplicacion
+  fun cambiarACalidad(calidad: Calidad){
+    this.calidad=calidad
   }
 }
-
-enum class Calidad(val calidad: Int) {
-  SD(0),
+enum class Calidad(val factorDeMultiplicacion: Int) {
+  SD(1),
   HD720p(3),
-  HD1080p(6)
+  HD1080p(HD720p.factorDeMultiplicacion*2)
   // hay que corregir y encontrar la mejor manera de implementar los distintos tipos de Video
 }
