@@ -7,8 +7,4 @@ import ar.edu.unahur.obj2.caralibro.Video
 // OJO: lo que esté aquí no será tenido en cuenta
 // en la corrección ni reemplaza a los tests.
 
-listOf(1, 8, 10).average()
-
-val videito=Video(calidad = Calidad.HD1080p,segundos = 30)
-videito.espacioQueOcupa()
 

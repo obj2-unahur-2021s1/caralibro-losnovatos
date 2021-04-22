@@ -2,16 +2,18 @@ package ar.edu.unahur.obj2.caralibro
 
 import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 class UsuarioTest : DescribeSpec({
   describe("Caralibro") {
-    val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz")
-    val fotoEnCuzco = Foto(768, 1024)
-    val videoFiesta = Video(30, Calidad.SD)
+    val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz",publica)
+    val fotoEnCuzco = Foto(768, 1024,soloAmigos)
+    val videoFiesta = Video(30, Calidad.SD,conListaDeExcluidos)
     val pepe=Usuario()
     val juan = Usuario()
+    val sofia=Usuario()
 
     describe("Una publicación") {
       describe("de tipo foto") {
@@ -21,7 +23,7 @@ class UsuarioTest : DescribeSpec({
       }
       describe("de tipo foto con otro factor de compresion"){
         it("ocupa ancho*alto*nuevaCompresion"){
-          fotoEnCuzco.cambiarFactorDeCompresion(0.8)
+          factorDeCompresion.cambiarFactorDeCompresion(0.8)
           fotoEnCuzco.espacioQueOcupa().shouldBe(629146)
         }
       }
@@ -76,7 +78,22 @@ class UsuarioTest : DescribeSpec({
         }
       }
     }
-
+    describe("puede ver publicacion"){
+      it("pepe ve la foto en cuzco que subio su amigo juan."){
+        juan.agregarPublicacion(fotoEnCuzco)
+        juan.agregarAmigo(pepe)
+        pepe.puedeVer(juan,fotoEnCuzco).shouldBeTrue()
+      }
+      it("pepe no puede ver el vide que subio sofia"){
+        sofia.agregarUsuarioAListaDeExcluidos(pepe)
+        sofia.agregarPublicacion(videoFiesta)
+        pepe.puedeVer(sofia,videoFiesta).shouldBeFalse()
+      }
+      it("pepe puede ver su propia publicacion"){
+        pepe.agregarPublicacion(fotoEnCuzco)
+        pepe.puedeVer(pepe,fotoEnCuzco).shouldBeTrue()
+      }
+    }
 
   }
 })
