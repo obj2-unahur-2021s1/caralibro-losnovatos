@@ -60,6 +60,7 @@ class UsuarioTest : DescribeSpec({
     describe("Un usuario") {
       it("puede calcular el espacio que ocupan sus publicaciones") {
         val juana = Usuario()
+        factorDeCompresion.cambiarFactorDeCompresion(0.7)
         juana.agregarPublicacion(fotoEnCuzco)
         juana.agregarPublicacion(saludoCumpleanios)
         juana.espacioDePublicaciones().shouldBe(550548)
