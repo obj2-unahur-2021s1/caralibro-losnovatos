@@ -69,7 +69,7 @@ class UsuarioTest : DescribeSpec({
       it("pepe le da me gusta"){
         pepe.darMeGusta(fotoEnCuzco)
         fotoEnCuzco.usuariosQueLeGusta.contains(pepe).shouldBeTrue()
-        fotoEnCuzco.cantidadDeMeGustas.shouldBe(1)
+        fotoEnCuzco.contadorDeLikes.shouldBe(1)
       }
       it("no permite dar me gusta") {
         pepe.darMeGusta(fotoEnCuzco)

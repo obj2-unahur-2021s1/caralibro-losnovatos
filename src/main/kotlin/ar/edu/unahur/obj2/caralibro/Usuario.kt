@@ -22,10 +22,11 @@ class Usuario {
   fun darMeGusta(publicacion: Publicacion){
     check(!publicacion.usuariosQueLeGusta.contains(this)){"Este usuario ya le ha dado me gusta a la publicacion"}
     publicacion.usuariosQueLeGusta.add(this)
-    publicacion.cantidadDeMeGustas+=1
+    publicacion.contadorDeLikes+=1
   }
   fun puedeVer(usuarioQueQuiereVerla:Usuario,publicacion: Publicacion)=publicacion.puedeSerVistaPor(usuarioQueQuiereVerla,this )
 
   fun espacioDePublicaciones() = publicaciones.sumBy { it.espacioQueOcupa() }
+  fun esMasAmistosoQue(usuario:Usuario)=this.amigos.size>usuario.amigos.size
 }
 

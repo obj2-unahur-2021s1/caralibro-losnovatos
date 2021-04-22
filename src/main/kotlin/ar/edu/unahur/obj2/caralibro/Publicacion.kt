@@ -5,7 +5,7 @@ import kotlin.math.ceil
 abstract class Publicacion(var privacidad: Privacidad) {
   abstract fun espacioQueOcupa(): Int
   var usuariosQueLeGusta= mutableListOf<Usuario>()
-  var cantidadDeMeGustas=0
+  var contadorDeLikes=0
   fun cambiarPrivacidad(privacidad: Privacidad){
     this.privacidad=privacidad
   }
