@@ -1,4 +1,5 @@
 import ar.edu.unahur.obj2.caralibro.*
+import kotlin.math.ceil
 
 // Pueden usar este archivo para hacer pruebas rápidas,
 // de la misma forma en que usaban el REPL de Wollok.
@@ -12,4 +13,6 @@ pepe.darMeGusta(foto)
 juan.darMeGusta(foto)
 foto.contadorDeLikes
 foto.usuariosQueLeGusta.contains(pepe)
-
+repeat(10) {pepe.agregarPublicacion(foto)}
+pepe.publicaciones.size
+ceil(pepe.publicaciones.size * 0.9).toInt()

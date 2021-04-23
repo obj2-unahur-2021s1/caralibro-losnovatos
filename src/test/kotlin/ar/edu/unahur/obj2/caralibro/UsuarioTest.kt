@@ -125,5 +125,25 @@ class UsuarioTest : DescribeSpec({
       pepe.darMeGusta(videoFiesta)
       pepe.amigoMasPopular().shouldBe(sofia)
     }
+
+    it("stalkea a otro usuario") {
+      val saludo1 = Texto("Hola", Publica)
+      val saludo2 = Texto("Como va?", Publica)
+      val saludo3 = Texto("todo bien?", Publica)
+      val saludo4 = Texto("Trabajas mañana?", Publica)
+      pepe.agregarAmigo(sofia)
+      pepe.agregarPublicacion(saludoCumpleanios)
+      pepe.agregarPublicacion(saludo1)
+      pepe.agregarPublicacion(saludo2)
+      pepe.agregarPublicacion(saludo3)
+      repeat(6){pepe.agregarPublicacion(saludo4)}
+      sofia.darMeGusta(saludo1)
+      sofia.darMeGusta(saludo2)
+      sofia.darMeGusta(saludo3)
+      sofia.darMeGusta(saludo4)
+      sofia.stalkeaA(pepe).shouldBeTrue()
+      // acá sofia le da like a las 6 publicaciones del saludo4 + 3 publicaciones de otros saludos de pepe,
+      // un total de 9/10, es decir, el 0.9% del total de publicaciones
+    }
   }
 })

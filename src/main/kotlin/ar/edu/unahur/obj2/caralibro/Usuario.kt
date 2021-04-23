@@ -1,5 +1,7 @@
 package ar.edu.unahur.obj2.caralibro
 
+import kotlin.math.ceil
+
 class Usuario {
   val publicaciones = mutableListOf<Publicacion>()
   var amigos= mutableListOf<Usuario>()
@@ -32,5 +34,10 @@ class Usuario {
   //fun mejoresAmigos() = amigos.filter { it.puedeVer(it, /*acá hay que buscar la manera de resolver esta parte*/) }
   fun amigoMasPopular() = amigos.maxBy { it.totalLikes() }
   fun totalLikes() = publicaciones.sumBy { it.contadorDeLikes }
+
+  fun stalkeaA(usuario: Usuario) = cantidadPublicacionesALasQueDioLike(usuario) >= cantidadPublicacionesParaStalkear()
+  fun cantidadPublicacionesParaStalkear() = ceil(cantidadPublicaciones() * 0.9).toInt()
+  fun cantidadPublicaciones() = publicaciones.size
+  fun cantidadPublicacionesALasQueDioLike(usuario: Usuario) = publicaciones.count { it.leDioLike(usuario) }
 }
 

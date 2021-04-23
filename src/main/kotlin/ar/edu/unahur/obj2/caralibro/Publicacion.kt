@@ -10,6 +10,7 @@ abstract class Publicacion(var privacidad: Privacidad) {
     this.privacidad=privacidad
   }
   fun puedeSerVistaPor(usuarioQueQuiereVerla: Usuario,usuarioQuePublica: Usuario)= privacidad.usuariosQuePuedenVer(usuarioQueQuiereVerla,usuarioQuePublica)
+  fun leDioLike(usuario: Usuario) = usuariosQueLeGusta.contains(usuario)
 }
 
 class Foto(val alto: Int, val ancho: Int, privacidad: Privacidad) : Publicacion(privacidad) {
