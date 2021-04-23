@@ -66,35 +66,52 @@ class UsuarioTest : DescribeSpec({
         juana.espacioDePublicaciones().shouldBe(550548)
       }
     }
-    describe("la publicacion le gusta a pepe y cantidad de me gustas"){
-      it("pepe le da me gusta"){
+
+    it("le da me gusta a una publicación"){
+      pepe.darMeGusta(fotoEnCuzco)
+      fotoEnCuzco.usuariosQueLeGusta.contains(pepe).shouldBeTrue()
+    }
+
+    it("consulta cuantas veces le dieron like a una publicación") {
+      pepe.darMeGusta(videoFiesta)
+      sofia.darMeGusta(videoFiesta)
+      juan.darMeGusta(videoFiesta)
+      videoFiesta.contadorDeLikes.shouldBe(3)
+    }
+
+    it("no puede dar me gusta 2 veces a una misma publicación") {
+      pepe.darMeGusta(fotoEnCuzco)
+      shouldThrowAny {
         pepe.darMeGusta(fotoEnCuzco)
-        fotoEnCuzco.usuariosQueLeGusta.contains(pepe).shouldBeTrue()
-        fotoEnCuzco.contadorDeLikes.shouldBe(1)
-      }
-      it("no permite dar me gusta") {
-        pepe.darMeGusta(fotoEnCuzco)
-        shouldThrowAny {
-          pepe.darMeGusta(fotoEnCuzco)
-        }
       }
     }
-    describe("puede ver publicacion"){
-      it("pepe ve la foto en cuzco que subio su amigo juan."){
+
+    describe("puede ver publicacion") {
+      it("de foto en Cuzco que subió su amigo Juan.") {
         juan.agregarPublicacion(fotoEnCuzco)
         juan.agregarAmigo(pepe)
         pepe.puedeVer(juan,fotoEnCuzco).shouldBeTrue()
       }
-      it("pepe no puede ver el vide que subio sofia"){
-        sofia.agregarUsuarioAListaDeExcluidos(pepe)
-        sofia.agregarPublicacion(videoFiesta)
-        pepe.puedeVer(sofia,videoFiesta).shouldBeFalse()
-      }
-      it("pepe puede ver su propia publicacion"){
+
+      it("puede ver su propia publicación") {
         pepe.agregarPublicacion(fotoEnCuzco)
         pepe.puedeVer(pepe,fotoEnCuzco).shouldBeTrue()
       }
     }
 
+    it("no puede ver el video que subió Sofia"){
+      sofia.agregarUsuarioAListaDeExcluidos(pepe)
+      sofia.agregarPublicacion(videoFiesta)
+      pepe.puedeVer(sofia,videoFiesta).shouldBeFalse()
+    }
+
+    it("es mas amistoso que otro usuario") {
+      val leonel = Usuario()
+      pepe.agregarAmigo(sofia)
+      pepe.agregarAmigo(leonel)
+      pepe.agregarAmigo(juan)
+      leonel.agregarAmigo(sofia)
+      pepe.esMasAmistosoQue(leonel).shouldBeTrue()
+    }
   }
 })
