@@ -87,7 +87,7 @@ class UsuarioTest : DescribeSpec({
     }
 
     describe("puede ver publicacion") {
-      it("de foto en Cuzco que subió su amigo Juan.") {
+      it("de foto en Cuzco de su amigo Juan.") {
         juan.agregarPublicacion(fotoEnCuzco)
         juan.agregarAmigo(pepe)
         pepe.puedeVer(juan,fotoEnCuzco).shouldBeTrue()
@@ -112,6 +112,18 @@ class UsuarioTest : DescribeSpec({
       pepe.agregarAmigo(juan)
       leonel.agregarAmigo(sofia)
       pepe.esMasAmistosoQue(leonel).shouldBeTrue()
+      // pepe tiene 3 amigos mientras que leonel tiene 2
+    }
+
+    it("sabe cual es el amigo mas popular") {
+      pepe.agregarAmigo(sofia)
+      pepe.agregarAmigo(juan)
+      pepe.agregarPublicacion(saludoCumpleanios)
+      sofia.agregarPublicacion(videoFiesta)
+      sofia.darMeGusta(saludoCumpleanios)
+      juan.darMeGusta(videoFiesta)
+      pepe.darMeGusta(videoFiesta)
+      pepe.amigoMasPopular().shouldBe(sofia)
     }
   }
 })
