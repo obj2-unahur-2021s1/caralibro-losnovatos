@@ -8,9 +8,9 @@ import io.kotest.matchers.shouldBe
 
 class UsuarioTest : DescribeSpec({
   describe("Caralibro") {
-    val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz",publica)
-    val fotoEnCuzco = Foto(768, 1024,soloAmigos)
-    val videoFiesta = Video(30, Calidad.SD,conListaDeExcluidos)
+    val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz",Publica)
+    val fotoEnCuzco = Foto(768, 1024, SoloAmigos)
+    val videoFiesta = Video(30, Calidad.SD, Excluidos)
     val pepe=Usuario()
     val juan = Usuario()
     val sofia=Usuario()
@@ -23,7 +23,7 @@ class UsuarioTest : DescribeSpec({
       }
       describe("de tipo foto con otro factor de compresion"){
         it("ocupa ancho*alto*nuevaCompresion"){
-          factorDeCompresion.cambiarFactorDeCompresion(0.8)
+          FactorDeCompresion.cambiarFactorDeCompresion(0.8)
           fotoEnCuzco.espacioQueOcupa().shouldBe(629146)
         }
       }
@@ -43,14 +43,14 @@ class UsuarioTest : DescribeSpec({
 
         describe("calidad HD720p") {
           it("ocupa bytes igual al triple de duración en segundos") {
-            videoFiesta.cambiarACalidad(calidad = Calidad.HD720p)
+            videoFiesta.cambiarACalidad(Calidad.HD720p)
             videoFiesta.espacioQueOcupa().shouldBe(90)
           }
         }
 
         describe("calidad HD1080p") {
           it("ocupa bytes igual al doble de duración en segundos que tendría en HD720p") {
-            videoFiesta.cambiarACalidad(calidad=Calidad.HD1080p)
+            videoFiesta.cambiarACalidad(Calidad.HD1080p)
             videoFiesta.espacioQueOcupa().shouldBe(180)
           }
         }
@@ -60,7 +60,7 @@ class UsuarioTest : DescribeSpec({
     describe("Un usuario") {
       it("puede calcular el espacio que ocupan sus publicaciones") {
         val juana = Usuario()
-        factorDeCompresion.cambiarFactorDeCompresion(0.7)
+        FactorDeCompresion.cambiarFactorDeCompresion(0.7)
         juana.agregarPublicacion(fotoEnCuzco)
         juana.agregarPublicacion(saludoCumpleanios)
         juana.espacioDePublicaciones().shouldBe(550548)

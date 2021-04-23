@@ -9,11 +9,11 @@ abstract class Publicacion(var privacidad: Privacidad) {
   fun cambiarPrivacidad(privacidad: Privacidad){
     this.privacidad=privacidad
   }
-  fun puedeSerVistaPor(usuarioQueQuiereVerla: Usuario,usuarioQuePublica: Usuario)=privacidad.usuariosQuePuedenVer(usuarioQueQuiereVerla,usuarioQuePublica)
+  fun puedeSerVistaPor(usuarioQueQuiereVerla: Usuario,usuarioQuePublica: Usuario)= privacidad.usuariosQuePuedenVer(usuarioQueQuiereVerla,usuarioQuePublica)
 }
 
 class Foto(val alto: Int, val ancho: Int, privacidad: Privacidad) : Publicacion(privacidad) {
-  override fun espacioQueOcupa() = ceil(alto * ancho * factorDeCompresion.factorActual).toInt()
+  override fun espacioQueOcupa() = ceil(alto * ancho * FactorDeCompresion.factorActual).toInt()
 }
 
 class Texto(val contenido: String, privacidad: Privacidad) : Publicacion(privacidad) {
@@ -30,15 +30,14 @@ enum class Calidad(val factorDeMultiplicacion: Int) {
   SD(1),
   HD720p(3),
   HD1080p(HD720p.factorDeMultiplicacion*2)
-  // hay que corregir y encontrar la mejor manera de implementar los distintos tipos de Video
 }
 abstract class Privacidad(){
   abstract fun usuariosQuePuedenVer(usuarioQuePublica:Usuario,usuarioQueQuiereVerla:Usuario):Boolean
 }
-object publica: Privacidad() {
+object Publica: Privacidad() {
   override fun usuariosQuePuedenVer(usuarioQuePublica: Usuario,usuarioQueQuiereVerla: Usuario)=true
 }
-object soloAmigos:Privacidad(){
+object SoloAmigos: Privacidad(){
   override fun usuariosQuePuedenVer(usuarioQuePublica: Usuario,usuarioQueQuiereVerla: Usuario):Boolean{
     if(usuarioQuePublica==usuarioQueQuiereVerla){
       return true
@@ -48,7 +47,7 @@ object soloAmigos:Privacidad(){
   }
 
 }
-object conListaDePermitidos:Privacidad(){
+object Permitidos: Privacidad(){
   override fun usuariosQuePuedenVer(usuarioQuePublica: Usuario, usuarioQueQuiereVerla: Usuario): Boolean {
     if(usuarioQuePublica==usuarioQueQuiereVerla){
       return true
@@ -57,7 +56,7 @@ object conListaDePermitidos:Privacidad(){
     }
   }
 }
-object conListaDeExcluidos:Privacidad(){
+object Excluidos: Privacidad(){
   override fun usuariosQuePuedenVer(usuarioQuePublica: Usuario, usuarioQueQuiereVerla: Usuario): Boolean {
     if (usuarioQuePublica == usuarioQueQuiereVerla) {
       return true
@@ -66,10 +65,10 @@ object conListaDeExcluidos:Privacidad(){
     }
   }
 }
-object factorDeCompresion{
-  var factorActual=0.7
-  fun cambiarFactorDeCompresion(nuevoFactor: Double){
-    this.factorActual= nuevoFactor
+object FactorDeCompresion {
+  var factorActual = 0.7
+  fun cambiarFactorDeCompresion(nuevoFactor: Double) {
+    this.factorActual = nuevoFactor
   }
 }
 

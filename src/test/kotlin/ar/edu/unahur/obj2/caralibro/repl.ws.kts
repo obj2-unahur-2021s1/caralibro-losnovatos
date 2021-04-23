@@ -5,7 +5,7 @@ import ar.edu.unahur.obj2.caralibro.*
 
 // OJO: lo que esté aquí no será tenido en cuenta
 // en la corrección ni reemplaza a los tests.
-val foto=Foto(720,1024,publica)
+val foto=Foto(720,1024,Publica)
 val pepe=Usuario()
 val juan=Usuario()
 pepe.darMeGusta(foto)
