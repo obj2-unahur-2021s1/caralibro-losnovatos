@@ -13,6 +13,6 @@ pepe.darMeGusta(foto)
 juan.darMeGusta(foto)
 foto.contadorDeLikes
 foto.usuariosQueLeGusta.contains(pepe)
-repeat(10) {pepe.agregarPublicacion(foto)}
+repeat(11) {pepe.agregarPublicacion(foto)}
 pepe.publicaciones.size
 ceil(pepe.publicaciones.size * 0.9).toInt()

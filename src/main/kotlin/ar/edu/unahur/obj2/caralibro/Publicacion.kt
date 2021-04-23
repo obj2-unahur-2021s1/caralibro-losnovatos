@@ -6,6 +6,7 @@ abstract class Publicacion(var privacidad: Privacidad) {
   abstract fun espacioQueOcupa(): Int
   var usuariosQueLeGusta= mutableListOf<Usuario>()
   var contadorDeLikes=0
+  fun contadorDeLikes() = contadorDeLikes
   fun cambiarPrivacidad(privacidad: Privacidad){
     this.privacidad=privacidad
   }

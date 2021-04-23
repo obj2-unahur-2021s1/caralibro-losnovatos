@@ -65,85 +65,91 @@ class UsuarioTest : DescribeSpec({
         juana.agregarPublicacion(saludoCumpleanios)
         juana.espacioDePublicaciones().shouldBe(550548)
       }
-    }
 
-    it("le da me gusta a una publicación"){
-      pepe.darMeGusta(fotoEnCuzco)
-      fotoEnCuzco.usuariosQueLeGusta.contains(pepe).shouldBeTrue()
-    }
+     it("le da me gusta a una publicación"){
+       pepe.darMeGusta(fotoEnCuzco)
+       fotoEnCuzco.usuariosQueLeGusta.contains(pepe).shouldBeTrue()
+     }
 
-    it("consulta cuantas veces le dieron like a una publicación") {
-      pepe.darMeGusta(videoFiesta)
-      sofia.darMeGusta(videoFiesta)
-      juan.darMeGusta(videoFiesta)
-      videoFiesta.contadorDeLikes.shouldBe(3)
-    }
+      it("consulta cuantas veces le dieron like a una publicación") {
+        pepe.darMeGusta(videoFiesta)
+        sofia.darMeGusta(videoFiesta)
+        juan.darMeGusta(videoFiesta)
+        pepe.cantidadDeLikesDePublicacion(videoFiesta).shouldBe(3)
+      }
 
-    it("no puede dar me gusta 2 veces a una misma publicación") {
-      pepe.darMeGusta(fotoEnCuzco)
-      shouldThrowAny {
+      it("no puede dar me gusta 2 veces a una misma publicación") {
         pepe.darMeGusta(fotoEnCuzco)
-      }
-    }
-
-    describe("puede ver publicacion") {
-      it("de foto en Cuzco de su amigo Juan.") {
-        juan.agregarPublicacion(fotoEnCuzco)
-        juan.agregarAmigo(pepe)
-        pepe.puedeVer(juan,fotoEnCuzco).shouldBeTrue()
+        shouldThrowAny {
+          pepe.darMeGusta(fotoEnCuzco)
+        }
       }
 
-      it("puede ver su propia publicación") {
-        pepe.agregarPublicacion(fotoEnCuzco)
-        pepe.puedeVer(pepe,fotoEnCuzco).shouldBeTrue()
+      describe("puede ver publicacion") {
+        it("de foto en Cuzco de su amigo Juan.") {
+          juan.agregarPublicacion(fotoEnCuzco)
+          juan.agregarAmigo(pepe)
+          pepe.puedeVer(juan,fotoEnCuzco).shouldBeTrue()
+        }
+
+        it("puede ver su propia publicación.") {
+          pepe.agregarPublicacion(fotoEnCuzco)
+          pepe.puedeVer(pepe,fotoEnCuzco).shouldBeTrue()
+        }
       }
-    }
 
-    it("no puede ver el video que subió Sofia"){
-      sofia.agregarUsuarioAListaDeExcluidos(pepe)
-      sofia.agregarPublicacion(videoFiesta)
-      pepe.puedeVer(sofia,videoFiesta).shouldBeFalse()
-    }
+      it("no puede ver el video que subió Sofia."){
+        sofia.agregarUsuarioAListaDeExcluidos(pepe)
+        sofia.agregarPublicacion(videoFiesta)
+        pepe.puedeVer(sofia,videoFiesta).shouldBeFalse()
+      }
 
-    it("es mas amistoso que otro usuario") {
-      val leonel = Usuario()
-      pepe.agregarAmigo(sofia)
-      pepe.agregarAmigo(leonel)
-      pepe.agregarAmigo(juan)
-      leonel.agregarAmigo(sofia)
-      pepe.esMasAmistosoQue(leonel).shouldBeTrue()
-      // pepe tiene 3 amigos mientras que leonel tiene 2
-    }
+      it("es mas amistoso que otro usuario.") {
+        val leonel = Usuario()
+        pepe.agregarAmigo(sofia)
+        pepe.agregarAmigo(leonel)
+        pepe.agregarAmigo(juan)
+        leonel.agregarAmigo(sofia)
+        pepe.esMasAmistosoQue(leonel).shouldBeTrue()
+        // pepe tiene 3 amigos mientras que leonel tiene 2
+      }
 
-    it("sabe cual es el amigo mas popular") {
-      pepe.agregarAmigo(sofia)
-      pepe.agregarAmigo(juan)
-      pepe.agregarPublicacion(saludoCumpleanios)
-      sofia.agregarPublicacion(videoFiesta)
-      sofia.darMeGusta(saludoCumpleanios)
-      juan.darMeGusta(videoFiesta)
-      pepe.darMeGusta(videoFiesta)
-      pepe.amigoMasPopular().shouldBe(sofia)
-    }
+      it("sabe cual es el amigo mas popular.") {
+        pepe.agregarAmigo(sofia)
+        pepe.agregarAmigo(juan)
+        pepe.agregarPublicacion(saludoCumpleanios)
+        sofia.agregarPublicacion(videoFiesta)
+        sofia.darMeGusta(saludoCumpleanios)
+        juan.darMeGusta(videoFiesta)
+        pepe.darMeGusta(videoFiesta)
+        pepe.amigoMasPopular().shouldBe(sofia)
+      }
 
-    it("stalkea a otro usuario") {
-      val saludo1 = Texto("Hola", Publica)
-      val saludo2 = Texto("Como va?", Publica)
-      val saludo3 = Texto("todo bien?", Publica)
-      val saludo4 = Texto("Trabajas mañana?", Publica)
-      pepe.agregarAmigo(sofia)
-      pepe.agregarPublicacion(saludoCumpleanios)
-      pepe.agregarPublicacion(saludo1)
-      pepe.agregarPublicacion(saludo2)
-      pepe.agregarPublicacion(saludo3)
-      repeat(6){pepe.agregarPublicacion(saludo4)}
-      sofia.darMeGusta(saludo1)
-      sofia.darMeGusta(saludo2)
-      sofia.darMeGusta(saludo3)
-      sofia.darMeGusta(saludo4)
-      sofia.stalkeaA(pepe).shouldBeTrue()
-      // acá sofia le da like a las 6 publicaciones del saludo4 + 3 publicaciones de otros saludos de pepe,
-      // un total de 9/10, es decir, el 0.9% del total de publicaciones
+      describe("le da like a 9 publicaciones de") {
+        val saludo1 = Texto("Hola", Publica)
+        val saludo2 = Texto("Como va?", Publica)
+        val saludo3 = Texto("todo bien?", Publica)
+        val saludo4 = Texto("Trabajas mañana?", Publica)
+        pepe.agregarAmigo(sofia)
+        pepe.agregarPublicacion(saludoCumpleanios)
+        pepe.agregarPublicacion(saludo1)
+        pepe.agregarPublicacion(saludo2)
+        pepe.agregarPublicacion(saludo3)
+        repeat(6){pepe.agregarPublicacion(saludo4)}
+        sofia.darMeGusta(saludo1)
+        sofia.darMeGusta(saludo2)
+        sofia.darMeGusta(saludo3)
+        sofia.darMeGusta(saludo4)
+        it("un total de 10 publicaciones, por lo que es stalker") {
+          sofia.stalkeaA(pepe).shouldBeTrue()
+        }
+
+        it("un total de 11 publicaciones, por lo que NO es stalker") {
+          pepe.agregarPublicacion(fotoEnCuzco)
+          sofia.stalkeaA(pepe).shouldBeFalse()
+          //este falla y no entiendo por qué
+        }
+      }
     }
   }
 })

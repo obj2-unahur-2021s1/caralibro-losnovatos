@@ -28,6 +28,7 @@ class Usuario {
   }
   fun puedeVer(usuarioQueQuiereVerla:Usuario,publicacion: Publicacion)=publicacion.puedeSerVistaPor(usuarioQueQuiereVerla,this )
 
+  fun cantidadDeLikesDePublicacion(publicacion: Publicacion) = publicacion.contadorDeLikes()
   fun espacioDePublicaciones() = publicaciones.sumBy { it.espacioQueOcupa() }
   fun esMasAmistosoQue(usuario:Usuario)= cantidadDeAmigos() > usuario.cantidadDeAmigos()
   fun cantidadDeAmigos() = this.amigos.size
