@@ -125,7 +125,7 @@ class UsuarioTest : DescribeSpec({
         pepe.amigoMasPopular().shouldBe(sofia)
       }
 
-      describe("le da like a 9 publicaciones de") {
+      describe("le da like a 9 publicaciones") {
         val saludo1 = Texto("Hola", Publica)
         val saludo2 = Texto("Como va?", Publica)
         val saludo3 = Texto("todo bien?", Publica)
@@ -138,7 +138,6 @@ class UsuarioTest : DescribeSpec({
         val saludo10 = Texto("Trabajas mañana?", Publica)
 
         pepe.agregarAmigo(sofia)
-        //pepe.agregarPublicacion(saludoCumpleanios)
         pepe.agregarPublicacion(saludo1)
         pepe.agregarPublicacion(saludo2)
         pepe.agregarPublicacion(saludo3)
@@ -149,7 +148,6 @@ class UsuarioTest : DescribeSpec({
         pepe.agregarPublicacion(saludo8)
         pepe.agregarPublicacion(saludo9)
         pepe.agregarPublicacion(saludo10)
-        //repeat(6){pepe.agregarPublicacion(saludo4)}
         sofia.darMeGusta(saludo1)
         sofia.darMeGusta(saludo2)
         sofia.darMeGusta(saludo3)
@@ -160,18 +158,17 @@ class UsuarioTest : DescribeSpec({
         sofia.darMeGusta(saludo8)
         sofia.darMeGusta(saludo9)
 
-
-        it("un total de 10 publicaciones, por lo que es stalker") {
-          pepe.meStalkea(sofia).shouldBeTrue()
-        }
-        it("a sofia le gustan 4 publi de pepe"){
+        it("de Pepe") {
           pepe.meGustasDeUnUsuarioEnMiPublicacion(sofia).shouldBe(9)
         }
 
-        it("un total de 11 publicaciones, por lo que NO es stalker") {
+        it("de un total de 10 publicaciones, por lo que es stalker") {
+          pepe.meStalkea(sofia).shouldBeTrue()
+        }
+
+        it("de un total de 11 publicaciones, por lo que NO es stalker") {
           pepe.agregarPublicacion(fotoEnCuzco)
           pepe.meStalkea(sofia).shouldBeFalse()
-          //este falla y no entiendo por qué.. ya no falla :P
         }
       }
     }

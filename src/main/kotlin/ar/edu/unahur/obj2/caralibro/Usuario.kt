@@ -36,11 +36,9 @@ class Usuario {
   fun amigoMasPopular() = amigos.maxBy { it.totalLikes() }
   fun totalLikes() = publicaciones.sumBy { it.contadorDeLikes }
 
-  //fun stalkeaA(usuario: Usuario) = cantidadPublicacionesALasQueDioLike(usuario) >= cantidadPublicacionesParaStalkear()
-  fun meStalkea(usuario: Usuario) = this.meGustasDeUnUsuarioEnMiPublicacion(usuario) >= (this.cantidadPublicaciones()*0.9)
-  // fun cantidadPublicacionesParaStalkear() = ceil(cantidadPublicaciones() * 0.9).toInt()
+  fun meStalkea(usuario: Usuario) = this.meGustasDeUnUsuarioEnMiPublicacion(usuario) >= this.cantidadPublicacionesParaStalkear()
+  fun cantidadPublicacionesParaStalkear() = ceil(this.cantidadPublicaciones() * 0.9).toInt()
   fun cantidadPublicaciones() = publicaciones.size
-  //fun cantidadPublicacionesALasQueDioLike(usuario: Usuario) = publicaciones.count { it.leDioLike(usuario) }
   fun meGustasDeUnUsuarioEnMiPublicacion(usuario:Usuario) = publicaciones.count { it.leDioLike(usuario)}
 }
 
