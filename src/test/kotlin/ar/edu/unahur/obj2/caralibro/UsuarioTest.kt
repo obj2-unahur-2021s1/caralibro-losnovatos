@@ -130,24 +130,48 @@ class UsuarioTest : DescribeSpec({
         val saludo2 = Texto("Como va?", Publica)
         val saludo3 = Texto("todo bien?", Publica)
         val saludo4 = Texto("Trabajas mañana?", Publica)
+        val saludo5 = Texto("Trabajas mañana?", Publica)
+        val saludo6 = Texto("Trabajas mañana?", Publica)
+        val saludo7 = Texto("Trabajas mañana?", Publica)
+        val saludo8 = Texto("Trabajas mañana?", Publica)
+        val saludo9 = Texto("Trabajas mañana?", Publica)
+        val saludo10 = Texto("Trabajas mañana?", Publica)
+
         pepe.agregarAmigo(sofia)
-        pepe.agregarPublicacion(saludoCumpleanios)
+        //pepe.agregarPublicacion(saludoCumpleanios)
         pepe.agregarPublicacion(saludo1)
         pepe.agregarPublicacion(saludo2)
         pepe.agregarPublicacion(saludo3)
-        repeat(6){pepe.agregarPublicacion(saludo4)}
+        pepe.agregarPublicacion(saludo4)
+        pepe.agregarPublicacion(saludo5)
+        pepe.agregarPublicacion(saludo6)
+        pepe.agregarPublicacion(saludo7)
+        pepe.agregarPublicacion(saludo8)
+        pepe.agregarPublicacion(saludo9)
+        pepe.agregarPublicacion(saludo10)
+        //repeat(6){pepe.agregarPublicacion(saludo4)}
         sofia.darMeGusta(saludo1)
         sofia.darMeGusta(saludo2)
         sofia.darMeGusta(saludo3)
         sofia.darMeGusta(saludo4)
+        sofia.darMeGusta(saludo5)
+        sofia.darMeGusta(saludo6)
+        sofia.darMeGusta(saludo7)
+        sofia.darMeGusta(saludo8)
+        sofia.darMeGusta(saludo9)
+
+
         it("un total de 10 publicaciones, por lo que es stalker") {
-          sofia.stalkeaA(pepe).shouldBeTrue()
+          pepe.meStalkea(sofia).shouldBeTrue()
+        }
+        it("a sofia le gustan 4 publi de pepe"){
+          pepe.meGustasDeUnUsuarioEnMiPublicacion(sofia).shouldBe(9)
         }
 
         it("un total de 11 publicaciones, por lo que NO es stalker") {
           pepe.agregarPublicacion(fotoEnCuzco)
-          sofia.stalkeaA(pepe).shouldBeFalse()
-          //este falla y no entiendo por qué
+          pepe.meStalkea(sofia).shouldBeFalse()
+          //este falla y no entiendo por qué.. ya no falla :P
         }
       }
     }
