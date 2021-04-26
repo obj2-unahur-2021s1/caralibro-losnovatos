@@ -32,7 +32,8 @@ class Usuario {
   fun espacioDePublicaciones() = publicaciones.sumBy { it.espacioQueOcupa() }
   fun esMasAmistosoQue(usuario:Usuario)= cantidadDeAmigos() > usuario.cantidadDeAmigos()
   fun cantidadDeAmigos() = this.amigos.size
-  //fun mejoresAmigos() = amigos.filter { it.puedeVer(it, /*acá hay que buscar la manera de resolver esta parte*/) }
+  fun puedeVerTodasLasPublicaciones(usuario:Usuario)=publicaciones.all{it.puedeSerVistaPor(usuario,this)}
+  fun mejoresAmigos() = amigos.filter { it.puedeVerTodasLasPublicaciones(this /*acá hay que buscar la manera de resolver esta parte*/) }
   fun amigoMasPopular() = amigos.maxBy { it.totalLikes() }
   fun totalLikes() = publicaciones.sumBy { it.contadorDeLikes }
 

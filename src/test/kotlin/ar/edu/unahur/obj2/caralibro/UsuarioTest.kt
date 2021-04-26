@@ -170,6 +170,14 @@ class UsuarioTest : DescribeSpec({
           pepe.agregarPublicacion(fotoEnCuzco)
           pepe.meStalkea(sofia).shouldBeFalse()
         }
+        it("pepe esta en la lista de mejores amigos de sofia y juan no.")
+        sofia.agregarAmigo(pepe)
+        val fotoPlaya=Foto(720,1024,Permitidos)
+        sofia.agregarPublicacion(fotoPlaya)
+        sofia.agregarUsuarioAListaDePermitidos(pepe)
+        sofia.agregarPublicacion(fotoEnCuzco)
+        sofia.mejoresAmigos().contains(pepe).shouldBeTrue()
+        sofia.mejoresAmigos().contains(juan).shouldBeFalse()
       }
     }
   }
