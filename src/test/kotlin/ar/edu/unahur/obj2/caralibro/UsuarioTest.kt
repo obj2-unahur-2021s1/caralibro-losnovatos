@@ -170,14 +170,24 @@ class UsuarioTest : DescribeSpec({
           pepe.agregarPublicacion(fotoEnCuzco)
           pepe.meStalkea(sofia).shouldBeFalse()
         }
-        it("pepe esta en la lista de mejores amigos de sofia y juan no.")
+      }
+
+      it("está en la lista de mejores amigos de Sofia.") {
         sofia.agregarAmigo(pepe)
         val fotoPlaya=Foto(720,1024,Permitidos)
         sofia.agregarPublicacion(fotoPlaya)
-        sofia.agregarUsuarioAListaDePermitidos(pepe)
         sofia.agregarPublicacion(fotoEnCuzco)
         sofia.mejoresAmigos().contains(pepe).shouldBeTrue()
+      }
+
+      it("NO está en la lista de mejores amigos de Sofia.") {
+        sofia.agregarAmigo(juan)
+        val fotoPlaya=Foto(720,1024,Permitidos)
+        sofia.agregarPublicacion(fotoPlaya)
+        sofia.agregarUsuarioAListaDeExcluidos(juan)
+        sofia.agregarPublicacion(fotoEnCuzco)
         sofia.mejoresAmigos().contains(juan).shouldBeFalse()
+        //este test falla
       }
     }
   }
