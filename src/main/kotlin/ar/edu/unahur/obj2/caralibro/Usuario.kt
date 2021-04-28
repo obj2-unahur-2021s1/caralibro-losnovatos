@@ -26,7 +26,7 @@ class Usuario {
     publicacion.usuariosQueLeGusta.add(this)
     publicacion.contadorDeLikes+=1
   }
-  fun puedeVer(usuarioQueQuiereVerla:Usuario,publicacion: Publicacion)=publicacion.puedeSerVistaPor(usuarioQueQuiereVerla,this )
+  fun permiteQue_UsuarioVeaLa_Publicacion(usuarioQueQuiereVerla:Usuario, publicacion: Publicacion)=publicacion.puedeSerVistaPor(usuarioQueQuiereVerla,this )
 
   fun cantidadDeLikesDePublicacion(publicacion: Publicacion) = publicacion.contadorDeLikes()
   fun espacioDePublicaciones() = publicaciones.sumBy { it.espacioQueOcupa() }
@@ -34,7 +34,6 @@ class Usuario {
   fun cantidadDeAmigos() = this.amigos.size
   fun puedeVerTodasLasPublicaciones(usuario:Usuario)=publicaciones.all{it.puedeSerVistaPor(usuario,this)}
   fun mejoresAmigos() = amigos.filter { it.puedeVerTodasLasPublicaciones(this ) }
-  fun amigosNoExluidos() = amigos
   fun amigoMasPopular() = amigos.maxBy { it.totalLikes() }
   fun totalLikes() = publicaciones.sumBy { it.contadorDeLikes }
 
