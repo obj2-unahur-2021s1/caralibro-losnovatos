@@ -14,6 +14,7 @@ class UsuarioTest : DescribeSpec({
     val pepe=Usuario()
     val juan = Usuario()
     val sofia=Usuario()
+    val lala=Usuario()
 
     describe("Un usuario") {
       it("puede calcular el espacio que ocupan sus publicaciones") {
