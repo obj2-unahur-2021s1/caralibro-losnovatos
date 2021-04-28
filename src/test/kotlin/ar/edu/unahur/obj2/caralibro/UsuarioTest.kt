@@ -138,26 +138,6 @@ class UsuarioTest : DescribeSpec({
         sofia.agregarPublicacion(fotoEnCuzco)
         sofia.mejoresAmigos().contains(pepe).shouldBeTrue()
       }
-
-     /*it("NO está en la lista de mejores amigos de Sofia.") {
-        sofia.agregarAmigo(juan)
-        val fotoPlaya=Foto(720,1024,Permitidos)
-        sofia.agregarPublicacion(fotoPlaya)
-        sofia.agregarUsuarioAListaDeExcluidos(juan)
-        sofia.agregarPublicacion(fotoEnCuzco)
-        sofia.mejoresAmigos().contains(juan).shouldBeFalse()
-        //este test falla
-      }
-      it("puede ver publi estando excluido"){
-        val fotito=Foto(720,1024,Excluidos)
-        val jorge=Usuario()
-        val jorgina=Usuario()
-        jorgina.agregarPublicacion(fotito)
-        jorgina.agregarAmigo(jorge)
-        jorgina.agregarUsuarioAListaDeExcluidos(jorge)
-        jorgina.permiteQue_UsuarioVeaLa_Publicacion(jorge,fotito).shouldBeFalse()
-        jorgina.mejoresAmigos().contains(jorge).shouldBeFalse()
-      }*/
     }
   }
 })
